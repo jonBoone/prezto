@@ -1,3 +1,9 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 #
 # Executes commands at the start of an interactive session.
 #
@@ -11,3 +17,106 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# augment $PATH to include /home/${USER}/bin
+export PATH="${HOME}/bin:${PATH}"
+
+# add jdk@8 to $PATH
+export PATH="/usr/local/opt/openjdk@8/bin:${PATH}"
+
+# add path to EmacsForOSX emacsclient
+export PATH="/Applications/Emacs.app/Contents/MacOS/bin/:${PATH}"
+
+# set up completion
+if type brew &>/dev/null; then
+	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+	autoload -Uz compinit
+	compinit
+fi
+
+# why would you type 'cd dir' if you could just type 'dir'?
+setopt AUTO_CD
+
+# Now we can pipe to multiple outputs!
+setopt MULTIOS
+
+# This makes cd=pushd
+setopt AUTO_PUSHD
+
+# This will use named dirs when possible
+setopt AUTO_NAME_DIRS
+
+# If we have a glob this will expand it
+setopt GLOB_COMPLETE
+setopt PUSHD_MINUS
+
+# No more annoying pushd messages...
+# setopt PUSHD_SILENT
+
+# blank pushd goes to home
+setopt PUSHD_TO_HOME
+
+# this will ignore multiple directories for the stack.  Useful?  I dunno.
+setopt PUSHD_IGNORE_DUPS
+
+# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+setopt RM_STAR_WAIT
+
+# use magic (this is default, but it can't hurt!)
+setopt ZLE
+
+setopt NO_HUP
+
+setopt IGNORE_EOF
+
+# Case insensitive globbing
+setopt NO_CASE_GLOB
+
+setopt NUMERIC_GLOB_SORT
+
+setopt EXTENDED_GLOB
+
+setopt RC_EXPAND_PARAM
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# TeXLive 2020 ENV VARIABLES
+export TEXMFHOME=~/texmf
+
+# GITSTATUS
+GITSTATUS_LOG_LEVEL=DEBUG
+
+ # GO ENV VARIABLES
+export GOPATH=$HOME
+export PATH=$PATH:$GOPATH/bin
+
+# docker setup w/minikube
+# attempt to start minikube
+#echo "----------     ----------     ----------     ----------     ----------     ---------     -----------"
+#echo "starting minikube for local docker use"
+#minikube start
+#if [ $? -eq 0 ]; then
+#  echo "minikube is running -- configuring docker to use the local vm"
+#  eval $(minikube -p minikube docker-env)
+#fi
+#echo "----------     ----------     ----------     ----------     ----------     ---------     -----------\n"
+
+# aliases
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

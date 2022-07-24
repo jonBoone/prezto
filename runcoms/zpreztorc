@@ -37,6 +37,7 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'spectrum' \
   'utility' \
+  'python' \
   'completion' \
   'history-substring-search' \
   'prompt'
@@ -130,7 +131,7 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'sorin'
+zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
@@ -145,11 +146,11 @@ zstyle ':prezto:module:prompt' theme 'sorin'
 # Python
 #
 
-# Auto switch the Python virtualenv on directory change.
-# zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'
+# disable virtualenvwrapper
+zstyle ':prezto:module:python' skip-virtualenvwrapper-init 'on'
 
-# Automatically initialize virtualenvwrapper if pre-requisites are met.
-# zstyle ':prezto:module:python:virtualenv' initialize 'yes'
+# enable conda support
+zstyle ':prezto:module:python' conda-init 'on'
 
 #
 # Ruby
