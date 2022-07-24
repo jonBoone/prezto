@@ -57,6 +57,15 @@ zstyle ':prezto:load' pmodule \
 # zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
 #   '0.0.0.0' '127.0.0.1'
 
+# enable completions for all modules provided
+zstyle ':completion::complete:*' use-cache 1
+
+# enable subcommand completion groups
+zstyle ':conda:*' use-groups true
+
+# enable conda environment listing by time
+zstyle ':conda:*' sort-envs-by-time true
+
 #
 # Editor
 #
